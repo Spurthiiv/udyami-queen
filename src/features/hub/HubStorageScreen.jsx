@@ -1,0 +1,50 @@
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+
+const initialStock = [
+  { id: 'ST-301', item: 'Homemade Chapati', seller: 'Lakshmi Kitchen', qty: 40, bin: 'A-12' },
+  { id: 'ST-302', item: 'Organic Ragi Flour', seller: 'Kaveri Farm Store', qty: 15, bin: 'B-04' },
+  { id: 'ST-303', item: 'Terracotta Diya Set', seller: 'Sundari Pottery', qty: 20, bin: 'C-08' },
+];
+
+function HubStorageScreen() {
+  const navigate = useNavigate();
+  const [stock, setStock] = useState(initialStock);
+
+  function handleShelve(id) {
+    setStock((prev) => prev.filter((s) => s.id !== id));
+  }
+
+  return (
+    <div className="min-h-screen bg-[#FDF6F0] pb-6">
+      <div className="bg-gradient-to-b from-[#8B1E3F] to-[#6E1731] px-4 py-4 flex items-center gap-3">
+        <button onClick={() => navigate(-1)} className="text-white text-lg">←</button>
+        <h1 className="text-white font-semibold">Storage</h1>
+      </div>
+
+      <div className="px-4 mt-4">
+        {stock.length === 0 && (
+          <p className="text-gray-400 text-sm text-center mt-10">Nothing pending storage</p>
+        )}
+        {stock.map((s) => (
+          <div key={s.id} className="bg-white rounded-xl shadow-sm p-4 mb-3">
+            <p className="text-[#8B1E3F] font-semibold text-sm">{s.id}</p>
+            <p className="text-gray-600 text-sm">{s.item} × {s.qty}</p>
+            <p className="text-gray-400 text-xs mb-3">from {s.seller}</p>
+            <div className="flex justify-between items-center">
+              <span className="text-xs text-gray-500">📦 Bin: {s.bin}</span>
+              <button
+                onClick={() => handleShelve(s.id)}
+                className="bg-[#8B1E3F] text-white text-xs font-semibold px-4 py-2 rounded-lg"
+              >
+                Mark Shelved
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default HubStorageScreen;
