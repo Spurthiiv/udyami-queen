@@ -1,5 +1,6 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import DeliveryMap from './DeliveryMap';
 
 const stages = ['Confirmed', 'Packed', 'Out for Delivery', 'Delivered'];
 
@@ -68,9 +69,14 @@ function OrderTrackingScreen() {
             </p>
           )}
         </div>
+        
+        {/* Live map */}
+<div className="mb-4">
+  <DeliveryMap stageIndex={currentStage} />
+</div>
 
-        {/* Delivery executive */}
-        <div className="bg-white rounded-xl shadow-sm p-4 mb-4 flex items-center gap-3">
+{/* Delivery executive */}
+<div className="bg-white rounded-xl shadow-sm p-4 mb-4 flex items-center gap-3">
           <div className="w-10 h-10 rounded-full bg-[#F0D9B5] flex-shrink-0" />
           <div className="flex-1">
             <p className="text-[#8B1E3F] font-medium text-sm">Anitha R.</p>

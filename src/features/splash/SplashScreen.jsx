@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/logo.png';
-import heroIllustration from '../../assets/hero-illustration.png';
+import { loginHeroImage } from '../../utils/heroImage';
 
 function SplashScreen() {
   const navigate = useNavigate();
@@ -15,9 +15,13 @@ function SplashScreen() {
       </div>
 
       {/* Illustration */}
-      <div className="w-full flex justify-center mt-6 mb-4">
-        <img src={heroIllustration} alt="Women entrepreneurs" className="w-56 h-56 object-contain" />
-      </div>
+<div className="w-full flex justify-center mt-6 mb-4">
+  <img
+    src={loginHeroImage}
+    alt="Women entrepreneurs"
+    className="w-56 h-56 object-cover rounded-2xl"
+  />
+</div>
 
       {/* Text */}
       <div className="text-center mt-2">
