@@ -134,7 +134,7 @@ function App() {
       <WishlistProvider>
         <AddressProvider>
           <CartProvider>
-            <BrowserRouter>
+            <BrowserRouter basename={import.meta.env.BASE_URL}>   {/* ← this line */}
               <div className="min-h-screen w-full bg-gray-200 flex justify-center">
                 <div className="w-full max-w-md min-h-screen bg-[#FDF6F0] shadow-2xl relative overflow-hidden">
                   <AppLayout />
