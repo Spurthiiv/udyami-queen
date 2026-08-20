@@ -46,6 +46,8 @@ import HubStorageScreen from './features/hub/HubStorageScreen';
 import HubDispatchScreen from './features/hub/HubDispatchScreen';
 import OrdersListScreen from './features/order/OrdersListScreen';
 import WishlistScreen from './features/wishlist/WishlistScreen';
+import { WardProvider } from './features/address/WardContext';
+import SelectWardScreen from './features/address/SelectWardScreen';
 
 function AppLayout() {
   const location = useLocation();
@@ -88,6 +90,7 @@ function AppLayout() {
         <Route path="/order-confirmed" element={<OrderConfirmedScreen />} />
         <Route path="/tracking" element={<OrderTrackingScreen />} />
         <Route path="/order-detail" element={<OrderDetailScreen />} />
+        <Route path="/select-ward" element={<SelectWardScreen />} />
         <Route
           path="/profile"
           element={
@@ -133,15 +136,17 @@ function App() {
     <AuthProvider>
       <WishlistProvider>
         <AddressProvider>
-          <CartProvider>
-            <BrowserRouter basename={import.meta.env.BASE_URL}>   {/* ← this line */}
-              <div className="min-h-screen w-full bg-gray-200 flex justify-center">
-                <div className="w-full max-w-md min-h-screen bg-[#FDF6F0] shadow-2xl relative overflow-hidden">
-                  <AppLayout />
+          <WardProvider>
+            <CartProvider>
+              <BrowserRouter basename={import.meta.env.BASE_URL}>
+                <div className="min-h-screen w-full bg-gray-200 flex justify-center">
+                  <div className="w-full max-w-md min-h-screen bg-[#FDF6F0] shadow-2xl relative overflow-hidden">
+                    <AppLayout />
+                  </div>
                 </div>
-              </div>
-            </BrowserRouter>
-          </CartProvider>
+              </BrowserRouter>
+            </CartProvider>
+          </WardProvider>
         </AddressProvider>
       </WishlistProvider>
     </AuthProvider>

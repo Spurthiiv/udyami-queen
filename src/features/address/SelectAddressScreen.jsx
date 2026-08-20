@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAddress } from './AddressContext';
+import { useWard } from './WardContext';
 
 function SelectAddressScreen() {
   const navigate = useNavigate();
   const { addresses, selectedAddress, selectAddress, addAddress, removeAddress } = useAddress();
+  const { selectedWard } = useWard();
   const [showForm, setShowForm] = useState(false);
   const [label, setLabel] = useState('');
   const [line, setLine] = useState('');
@@ -20,7 +22,11 @@ function SelectAddressScreen() {
       setError('Enter a label and full address');
       return;
     }
-    addAddress({ label: label.trim(), line: line.trim() });
+    addAddress({
+      label: label.trim(),
+      line: line.trim(),
+      ward: selectedWard ? `${selectedWard.wardName} (Ward ${selectedWard.wardNo})` : '',
+    });
     navigate(-1);
   }
 
@@ -44,6 +50,7 @@ function SelectAddressScreen() {
             <div className="flex-1">
               <p className="text-[#8B1E3F] font-medium">{addr.label}</p>
               <p className="text-gray-500 text-sm mt-0.5">{addr.line}</p>
+              {addr.ward && <p className="text-gray-400 text-xs mt-0.5">{addr.ward}</p>}
             </div>
             {addresses.length > 1 && (
               <span
@@ -76,6 +83,16 @@ function SelectAddressScreen() {
               placeholder="Home"
               className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none mb-3"
             />
+
+            <label className="text-xs text-gray-500 mb-1 block">Ward</label>
+            <button
+              type="button"
+              onClick={() => navigate('/select-ward')}
+              className="w-full text-left border border-gray-200 rounded-lg px-3 py-2 text-sm mb-3 text-gray-600"
+            >
+              {selectedWard ? `Ward ${selectedWard.wardNo} — ${selectedWard.wardName}` : 'Select your ward'}
+            </button>
+
             <label className="text-xs text-gray-500 mb-1 block">Full Address</label>
             <textarea
               value={line}

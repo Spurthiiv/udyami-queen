@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { categories } from '../../../data/products';
 import logo from '../../../assets/logo.png';
 import { getCategoryImage } from '../../../utils/categoryImages';
+import { useWard } from '../../address/WardContext';
 
 const tileColors = [
   '#F7D9B8', '#D6E8D2', '#E8D9C4', '#F3C9C0',
@@ -11,6 +12,7 @@ const tileColors = [
 function HomeScreen() {
   const navigate = useNavigate();
   const topCategories = categories.slice(0, 8);
+  const { selectedWard } = useWard();
 
   return (
     <div className="min-h-screen bg-[#FDF6F0] pb-24">
@@ -28,12 +30,13 @@ function HomeScreen() {
         </div>
 
         {/* Location row */}
-        <div>
-          <p className="text-white/80 text-xs">Bengaluru, Karnataka</p>
-          <p className="text-white font-semibold text-sm flex items-center gap-1">
-            Ward 15, Rajajinagar <span className="text-xs">▾</span>
-          </p>
-        </div>
+        {/* Location row */}
+<button onClick={() => navigate('/select-ward')} className="text-left">
+  <p className="text-white/80 text-xs">Bengaluru, Karnataka</p>
+  <p className="text-white font-semibold text-sm flex items-center gap-1">
+    Ward {selectedWard?.wardNo}, {selectedWard?.wardName} <span className="text-xs">▾</span>
+  </p>
+</button>
         <div className="bg-white rounded-xl mt-4 px-3 py-3 flex items-center gap-2">
           <span className="text-gray-400">🔍</span>
           <input
